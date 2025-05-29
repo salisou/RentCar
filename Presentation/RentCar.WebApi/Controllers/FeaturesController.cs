@@ -50,9 +50,9 @@ namespace RentCar.WebApi.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateFeature([FromBody] CreateFeatureCommand command)
+        public async Task<IActionResult> UpdateFeature([FromBody] UpdateFeatureCommand command)
         {
-            if (command == null)
+            if (command == null || command.Id <= 0)
             {
                 return BadRequest("Invalid feature data.");
             }
