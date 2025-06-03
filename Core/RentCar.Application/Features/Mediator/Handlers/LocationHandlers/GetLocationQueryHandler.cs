@@ -17,14 +17,13 @@ namespace RentCar.Application.Features.Mediator.Handlers.LocationHandlers
 
         public Task<List<GetLocationQueryResult>> Handle(GetLocationQuery request, CancellationToken cancellationToken)
         {
-            var locations = _repo.GetAllAsync();
-            var result = locations.Result.Select(location => new GetLocationQueryResult
-            {
-                LocationId = location.LocationId,
-                Name = location.Name
-            }).ToList();
-
-            return Task.FromResult(result);
+            var locations = _repo.GetAllAsync()
+                .ContinueWith(task => task.Result.Select(x => new GetLocationQueryResult
+                {
+                    LocationId = x.LocationId,
+                    Name = x.Name,
+                }).ToList(), cancellationToken);
+            return locations;
         }
     }
 }

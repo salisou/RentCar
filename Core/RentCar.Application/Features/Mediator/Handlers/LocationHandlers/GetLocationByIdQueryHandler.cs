@@ -17,17 +17,17 @@ namespace RentCar.Application.Features.Mediator.Handlers.LocationHandlers
 
         public Task<GetLocationByIdQueryResult> Handle(GetLocationByIdQuery request, CancellationToken cancellationToken)
         {
-            var location = _repo.GetByIdAsync(request.Id);
-            if (location == null)
-            {
-                return Task.FromResult<GetLocationByIdQueryResult>(null!);
-            }
-            var result = new GetLocationByIdQueryResult
-            {
-                LocationId = location.Result!.LocationId,
-                Name = location.Result.Name
-            };
-            return Task.FromResult(result);
+            var location = _repo.GetByIdAsync(request.Id)
+                .ContinueWith(task =>
+                {
+                    var loc = task.Result;
+                    return new GetLocationByIdQueryResult
+                    {
+                        LocationId = loc!.LocationId,
+                        Name = loc.Name
+                    };
+                }, cancellationToken);
+            return location;
         }
     }
 }
