@@ -4,5 +4,6 @@
     {
         public int PricingId { get; set; }
         public string Name { get; set; } = string.Empty;
+        public List<CarPricing> CarPricings { get; set; } = new List<CarPricing>();
     }
 }
