@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35707.178 d17.12
+VisualStudioVersion = 17.12.35707.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{3EDF0C0F-9AEC-4866-991E-479DAF6F43E9}"
 EndProject
@@ -24,6 +24,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FrontendsWebUI", "FrontendsWebUI", "{0D84AA37-0971-454D-9907-A36CC566B4FC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentCar.WebUi", "FrontendsWebUI\RentCar.WebUi\RentCar.WebUi.csproj", "{38D801B4-D36A-46D4-AC46-E2FCC63D2F8E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentCar.Dto", "FrontendsWebUI\RentCar.Dto\RentCar.Dto.csproj", "{00C12A04-F01D-4E95-AFD3-BE8E5E45885B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +57,10 @@ Global
 		{38D801B4-D36A-46D4-AC46-E2FCC63D2F8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{38D801B4-D36A-46D4-AC46-E2FCC63D2F8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{38D801B4-D36A-46D4-AC46-E2FCC63D2F8E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00C12A04-F01D-4E95-AFD3-BE8E5E45885B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00C12A04-F01D-4E95-AFD3-BE8E5E45885B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00C12A04-F01D-4E95-AFD3-BE8E5E45885B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00C12A04-F01D-4E95-AFD3-BE8E5E45885B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,5 +72,6 @@ Global
 		{336863C6-91D1-4E9A-ACFE-306E1E77D643} = {3EDF0C0F-9AEC-4866-991E-479DAF6F43E9}
 		{E2389F52-7991-4364-8489-1568565A3ECE} = {3DB33B93-77EE-4B2F-A7EE-DF55404A0BA5}
 		{38D801B4-D36A-46D4-AC46-E2FCC63D2F8E} = {0D84AA37-0971-454D-9907-A36CC566B4FC}
+		{00C12A04-F01D-4E95-AFD3-BE8E5E45885B} = {0D84AA37-0971-454D-9907-A36CC566B4FC}
 	EndGlobalSection
 EndGlobal

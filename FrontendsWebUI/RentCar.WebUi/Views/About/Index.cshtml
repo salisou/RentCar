@@ -1,8 +1,13 @@
-﻿
+﻿@* About *@
+
+
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/UiLayout/Index.cshtml";
 }
 
-<h1>About</h1>
+@await Component.InvokeAsync("_AboutUsComponentPartial")
 
+@await Component.InvokeAsync("_BecomeADriverComponentPartial")
+
+@await Component.InvokeAsync("_TestimonialComponentPartial")
