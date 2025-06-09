@@ -33,6 +33,7 @@ public static class ServiceRegistration
         services.AddScoped<UpdateCarCommandHandler>();
         services.AddScoped<RemoveCarCommandHandler>();
         services.AddScoped<GetCarWithBrandQueryHandler>();
+        services.AddScoped<GetLast5CarWithBrandQueryHandler>();
 
         services.AddScoped<GetCategoryQueryHandler>();
         services.AddScoped<GetCategoryByIdQueryHandler>();

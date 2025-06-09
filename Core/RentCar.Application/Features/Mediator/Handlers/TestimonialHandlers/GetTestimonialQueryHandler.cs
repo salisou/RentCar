@@ -15,7 +15,7 @@ namespace RentCar.Application.Features.Mediator.Handlers.TestimonialHandlers
             _repo = repo;
         }
 
-        public Task<List<GetTestimonialQueryReslut>> Handle(GetTestimonialQuery request, CancellationToken cancellationToken)
+        public async Task<List<GetTestimonialQueryReslut>> Handle(GetTestimonialQuery request, CancellationToken cancellationToken)
         {
             var values = _repo.GetAllAsync()
                 .ContinueWith(task => task.Result.Select(x => new GetTestimonialQueryReslut
@@ -28,7 +28,7 @@ namespace RentCar.Application.Features.Mediator.Handlers.TestimonialHandlers
                 }).ToList(),
                 cancellationToken);
 
-            return values;
+            return await values;
         }
     }
 }

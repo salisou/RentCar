@@ -2,7 +2,7 @@
 
 namespace RentCar.WebUi.Controllers
 {
-    public class ServiceController : Controller
+    public class AuthorController : Controller
     {
         public IActionResult Index()
         {
