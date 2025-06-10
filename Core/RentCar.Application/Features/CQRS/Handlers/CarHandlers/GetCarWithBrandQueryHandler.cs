@@ -12,9 +12,9 @@ namespace RentCar.Application.Features.CQRS.Handlers.CarHandlers
             _carRepository = carRepository;
         }
 
-        public List<GetCarWithBrandQueryResult> Handler()
+        public async Task<List<GetCarWithBrandQueryResult>> Handler()
         {
-            var values = _carRepository.GetCarsListWithBrands();
+            var values = await _carRepository.GetCarsListWithBrands();
             return values.Select(c => new GetCarWithBrandQueryResult
             {
                 CarId = c.CarId,
