@@ -88,9 +88,9 @@ namespace RentCar.WebApi.Controllers
         }
 
         [HttpGet("GetLast5CarsWithBrands")]
-        public IActionResult GetLast5CarsWithBrands()
+        public async Task<IActionResult> GetLast5CarsWithBrands()
         {
-            var result = _getLast5CarWithBrandQueryHandler.Handler();
+            var result = await _getLast5CarWithBrandQueryHandler.Handler();
             if (result == null || !result.Any())
             {
                 return NotFound("No cars found.");

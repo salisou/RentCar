@@ -15,7 +15,11 @@ namespace RentCar.WebUi.Controllers
 
         public async Task<IActionResult> Index()
         {
+            ViewBag.v1 = "CARS ";
+            ViewBag.v2 = "Our Premium Cars";
+            // Fetching car data from the API
             var client = _httpClientFactory.CreateClient();
+            // Ensure the API is running and accessible at the specified URL
             var result = await client.GetAsync("https://localhost:7265/api/Cars/with-brand");
             List<ResultCarWithBrandDto> cars = new();
 

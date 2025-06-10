@@ -60,5 +60,12 @@ namespace RentCar.WebApi.Controllers
             await _mediator.Send(command);
             return Ok("Blog Deleted successfully");
         }
+
+        [HttpGet("GetLast3BlogsWithAuthors")]
+        public async Task<IActionResult> GetLast3BlogsWithAuthors()
+        {
+            var value = await _mediator.Send(new GetLast3BlosWithAuthorQuery());
+            return Ok(value);
+        }
     }
 }

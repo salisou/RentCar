@@ -6,6 +6,8 @@ namespace RentCar.WebUi.Controllers
     {
         public IActionResult Index()
         {
+            ViewBag.v1 = "SERVICES ";
+            ViewBag.v2 = "Our Premium Service";
             return View();
         }
     }
