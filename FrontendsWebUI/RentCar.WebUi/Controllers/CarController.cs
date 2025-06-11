@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using RentCar.Dto.CarDtos;
+using RentCar.Dto.CarPricingDtos;
 
 namespace RentCar.WebUi.Controllers
 {
@@ -17,18 +17,20 @@ namespace RentCar.WebUi.Controllers
         {
             ViewBag.v1 = "CARS ";
             ViewBag.v2 = "Our Premium Cars";
-            // Fetching car data from the API
+
             var client = _httpClientFactory.CreateClient();
-            // Ensure the API is running and accessible at the specified URL
-            var result = await client.GetAsync("https://localhost:7265/api/Cars/with-brand");
-            List<ResultCarWithBrandDto> cars = new();
+            var result = await client.GetAsync("https://localhost:7265/api/CarPricings");
 
             if (result.IsSuccessStatusCode)
             {
                 var json = await result.Content.ReadAsStringAsync();
-                cars = JsonConvert.DeserializeObject<List<ResultCarWithBrandDto>>(json) ?? new List<ResultCarWithBrandDto>();
+                var cars = JsonConvert.DeserializeObject<List<ResultCarPricingWithCarDto>>(json);
+
+                return View(cars);
             }
-            return View(cars);
+
+            // In caso di errore API, ritorna una lista vuota per evitare NullReferenceException
+            return View(new List<ResultCarPricingWithCarDto>());
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using RentCar.Application.Features.Mediator.Queries.BlogQueries;
-using RentCar.Application.Features.Mediator.Results.BloagResults;
+using RentCar.Application.Features.Mediator.Results.BlogResults;
 using RentCar.Application.Interfaces;
 using RentCar.Domain.Entities;
 

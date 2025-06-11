@@ -67,5 +67,12 @@ namespace RentCar.WebApi.Controllers
             var value = await _mediator.Send(new GetLast3BlosWithAuthorQuery());
             return Ok(value);
         }
+
+        [HttpGet("GetAllBlogsWithAuthors")]
+        public async Task<IActionResult> GetAllBlogsWithAuthors()
+        {
+            var value = await _mediator.Send(new GetAllBlogsWithAuthorQuery());
+            return Ok(value);
+        }
     }
 }

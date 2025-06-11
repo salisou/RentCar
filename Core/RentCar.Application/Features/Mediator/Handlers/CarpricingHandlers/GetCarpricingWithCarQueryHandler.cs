@@ -23,7 +23,7 @@ namespace RentCar.Application.Features.Mediator.Handlers.CarpricingHandlers
                 Brand = cp.Car.Brand.Name,
                 Model = cp.Car.Model,
                 Amount = cp.Amount,
-                CaverImangeUrl = cp.Car.CoverImageUrl
+                CoverImangeUrl = cp.Car.CoverImageUrl
             }).ToList();
             return result;
         }

@@ -20,6 +20,7 @@ namespace RentCar.Persistence.Repositories.CarPricingRepositories
                 .Include(x => x.Car)
                 .ThenInclude(x => x.Brand)
                 .Include(x => x.Pricing)
+                //.Where(cp => cp.PricingId == 3)
                 .ToListAsync();
             return value;
         }

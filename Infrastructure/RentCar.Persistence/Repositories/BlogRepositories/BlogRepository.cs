@@ -14,14 +14,23 @@ namespace RentCar.Persistence.Repositories.BlogRepositories
             _context = context;
         }
 
-        public List<Blog> GetLast3BlosWithAuthors()
+        public async Task<List<Blog>> GetAllBlogsWithAuthors()
         {
-            var values = _context.Blogs
-                .Include(x => x.Author)
-                .OrderByDescending(x => x.BlogId)
+            return await _context.Blogs
+                .Include(b => b.Author)
+                .Include(b => b.Category)
+                .OrderByDescending(b => b.CreatedAt)
+                .ToListAsync();
+        }
+
+        public async Task<List<Blog>> GetLast3BlosWithAuthors()
+        {
+            return await _context.Blogs
+                .Include(b => b.Author)
+                .Include(b => b.Category)
+                .OrderByDescending(b => b.CreatedAt)
                 .Take(3)
-                .ToList();
-            return values;
+                .ToListAsync();
         }
     }
 }

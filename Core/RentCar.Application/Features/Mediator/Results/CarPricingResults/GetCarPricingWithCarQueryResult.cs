@@ -6,6 +6,6 @@
         public string Brand { get; set; } = string.Empty;
         public string Model { get; set; } = string.Empty;
         public decimal Amount { get; set; } = 0;
-        public string CaverImangeUrl { get; set; } = string.Empty;
+        public string CoverImangeUrl { get; set; } = string.Empty;
     }
 }

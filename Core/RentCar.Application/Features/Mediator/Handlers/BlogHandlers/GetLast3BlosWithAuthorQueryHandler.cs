@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using RentCar.Application.Features.Mediator.Queries.BlogQueries;
-using RentCar.Application.Features.Mediator.Results.BloagResults;
+using RentCar.Application.Features.Mediator.Results.BlogResults;
 using RentCar.Application.Interfaces.BlogIterfaces;
 
 namespace RentCar.Application.Features.Mediator.Handlers.BlogHandlers
@@ -14,9 +14,9 @@ namespace RentCar.Application.Features.Mediator.Handlers.BlogHandlers
             _repository = repository;
         }
 
-        public Task<List<GetLast3BlosWithAuthorQueryResult>> Handle(GetLast3BlosWithAuthorQuery request, CancellationToken cancellationToken)
+        public async Task<List<GetLast3BlosWithAuthorQueryResult>> Handle(GetLast3BlosWithAuthorQuery request, CancellationToken cancellationToken)
         {
-            var values = _repository.GetLast3BlosWithAuthors();
+            var values = await _repository.GetLast3BlosWithAuthors();
             var result = values.Select(b => new GetLast3BlosWithAuthorQueryResult
             {
                 BlogId = b.BlogId,
@@ -27,7 +27,7 @@ namespace RentCar.Application.Features.Mediator.Handlers.BlogHandlers
                 CategoryId = b.CategoryId,
                 CreatedAt = b.CreatedAt
             }).ToList();
-            return Task.FromResult(result);
+            return result;
         }
     }
 }

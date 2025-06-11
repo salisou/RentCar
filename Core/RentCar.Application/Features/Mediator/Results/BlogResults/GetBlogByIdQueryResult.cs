@@ -1,4 +1,4 @@
-﻿namespace RentCar.Application.Features.Mediator.Results.BloagResults
+﻿namespace RentCar.Application.Features.Mediator.Results.BlogResults
 {
     public class GetBlogByIdQueryResult
     {

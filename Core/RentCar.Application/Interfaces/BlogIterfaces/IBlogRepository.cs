@@ -4,6 +4,7 @@ namespace RentCar.Application.Interfaces.BlogIterfaces
 {
     public interface IBlogRepository
     {
-        public List<Blog> GetLast3BlosWithAuthors();
+        Task<List<Blog>> GetLast3BlosWithAuthors();
+        Task<List<Blog>> GetAllBlogsWithAuthors();
     }
 }

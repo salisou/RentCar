@@ -1,15 +1,15 @@
-﻿namespace RentCar.Domain.Entities
+﻿namespace RentCar.Application.Features.Mediator.Results.BlogResults
 {
-    public class Blog
+    public class GetAllBlogsWithAuthorQueryResult
     {
         public int BlogId { get; set; }
         public string Title { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public string CoverImageUrl { get; set; } = string.Empty;
         public int AuthorId { get; set; }
-        public Author Author { get; set; } = new Author();
+        public string AuthorName { get; set; } = string.Empty;
         public int CategoryId { get; set; }
-        public Category Category { get; set; } = new Category();
+        public string CategoryName { get; set; } = string.Empty;
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }
 }
