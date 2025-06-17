@@ -17,48 +17,54 @@ namespace RentCar.WebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetListBlog()
+        public async Task<IActionResult> GetBlogs()
         {
-            var value = await _mediator.Send(new GetBlogQuery());
-            return Ok(value);
+            var query = new GetBlogQuery();
+            var result = await _mediator.Send(query);
+            return Ok(result);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetBlogById(int id)
         {
-            var value = await _mediator.Send(new GetBlogByIdQuery(id));
-            return Ok(value);
+            var query = new GetBlogByIdQuery(id);
+            var result = await _mediator.Send(query);
+            if (result == null)
+            {
+                return NotFound();
+            }
+            return Ok(result);
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateBlog([FromBody] CreateBlogCommand command)
         {
-            if (command != null)
+            if (command == null)
             {
-                await _mediator.Send(command);
-                return Ok("Auhtor Created successfully");
+                return BadRequest("Invalid Blog data.");
             }
-
-            return BadRequest("Invalide Blog data");
+            await _mediator.Send(command);
+            return Ok("Blog created successfully.");
         }
 
         [HttpPut]
         public async Task<IActionResult> UpdateBlog([FromBody] UpdateBlogCommand command)
         {
-            if (command != null)
+            if (command == null)
             {
-                await _mediator.Send(command);
-                return Ok("Blog Updated successfully");
+                return BadRequest("Invalid Blog data.");
             }
-            return BadRequest("Invalid Blog data");
+            await _mediator.Send(command);
+            return Ok("Blog updated successfully.");
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBlog(int id)
         {
+            // Assuming you have a command for deleting a Blog
             var command = new RemoveBlogCommand(id);
             await _mediator.Send(command);
-            return Ok("Blog Deleted successfully");
+            return Ok("Blog deleted successfully.");
         }
 
         [HttpGet("GetLast3BlogsWithAuthors")]

@@ -33,6 +33,10 @@ namespace RentCar.WebUi.Controllers
 
         public async Task<IActionResult> BlogDetail(int id)
         {
+            ViewBag.v1 = "Blog Single";
+            ViewBag.v2 = "Read our blog";
+
+
             return View();
         }
     }

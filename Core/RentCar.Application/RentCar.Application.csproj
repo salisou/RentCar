@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Cervices\" />
-    <Folder Include="Features\Base\" />
   </ItemGroup>
 
   <ItemGroup>

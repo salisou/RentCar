@@ -2,7 +2,7 @@
 
 namespace RentCar.Application.Features.Mediator.Commands.AuthorCommands
 {
-    public class CreateAuthorCommand : IRequest
+    public class CreateAuthorCommand : IRequest<int>
     {
         public string Name { get; set; } = string.Empty;
         public string ImageUrl { get; set; } = string.Empty;

@@ -14,15 +14,11 @@ namespace RentCar.Application.Features.Mediator.Handlers.AuthorHandlers
             _authorRepository = authorRepository;
         }
 
-        public Task Handle(RemoveAuthorCommand request, CancellationToken cancellationToken)
+        public async Task Handle(RemoveAuthorCommand request, CancellationToken cancellationToken)
         {
-            var author = _authorRepository.GetByIdAsync(request.Id)
+            var author = await _authorRepository.GetByIdAsync(request.Id)
                 ?? throw new Exception("Author not found");
-            if (author.Result != null)
-            {
-                _authorRepository.RemoveAsync(author.Result);
-            }
-            return Task.CompletedTask;
+            await _authorRepository.RemoveAsync(author);
         }
     }
 }

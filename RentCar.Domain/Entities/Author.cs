@@ -7,5 +7,6 @@
         public string ImageUrl { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public List<Blog> Blogs { get; set; } = new();
+        public List<Comment> Comments { get; set; } = new();
     }
 }
