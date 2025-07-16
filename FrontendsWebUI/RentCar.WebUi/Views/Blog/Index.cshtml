@@ -1,44 +1,105 @@
 ﻿@model List<ResultAllBlogWithAuthorDto>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Blog";
     Layout = "~/Views/UiLayout/Index.cshtml";
+    var index = 0;
 }
 
+<style>
+    .blog-img-hover {
+        transition: transform 0.4s ease;
+        cursor: pointer;
+    }
+    .blog-img-hover:hover {
+        transform: scale(1.05);
+    }
+</style>
 
-<section class="ftco-section">
+<section class="py-5 bg-light">
     <div class="container">
-        <div class="row d-flex justify-content-center">
-            @if (Model != null && Model.Any())
+
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">RentCar Blog</h2>
+            <p class="text-muted">News, tips and automotive stories</p>
+        </div>
+
+        <div class="row mb-4 justify-content-end">
+            <div class="col-md-4">
+                <select class="form-select" id="authorFilter" aria-label="Filter blog posts by author">
+                    <option value="">-- Filter by Author --</option>
+                    @foreach (var author in Model.Select(x => x.AuthorName).Distinct())
+                    {
+                        <option value="@author">@author</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        @if (Model != null && Model.Any())
+        {
+            foreach (var item in Model)
             {
-                foreach (var item in Model)
-                {
-                    <div class="col-md-12 text-center d-flex ftco-animate">
-                        <div class="blog-entry justify-content-end mb-md-5">
-                            <a href="/Blog/Detail/" class="block-20 img" style="background-image: url('@item.CoverImageUrl');">
-                            </a>
-                            <div class="text px-md-5 pt-4">
-                                <div class="meta mb-3">
-                                    <div><a href="#">@item.CreatedAt.ToShortDateString()</a></div>
-                                    <div><a href="#">@item.AuthorName</a></div>
-                                    <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                                </div>
-                                <h3 class="heading mt-2"><a href="/Blog/BlogDetail/">@item.Title</a></h3>
-                                <p>@item.Description</p>
-                                <p><a href="/Blog/Detail/" class="btn btn-primary">Continue <span class="icon-long-arrow-right"></span></a></p>
-                            </div>
+                var isEven = index % 2 == 0;
+
+                <div class="row align-items-center mb-5 p-4 bg-white shadow-sm rounded-4 flex-md-row @(isEven ? "" : "flex-md-row-reverse")"
+                     data-author="@item.AuthorName" role="article" tabindex="0">
+
+                    <div class="col-md-5 mb-3 mb-md-0">
+                        <div class="ratio ratio-16x9 rounded overflow-hidden">
+                            <img src="@item.AuthorImageUrl"
+                                 class="img-fluid w-100 h-100 object-fit-cover blog-img-hover"
+                                 alt="@item.Title"
+                                 loading="lazy" />
                         </div>
                     </div>
-                }
-            }
-            else
-            {
-                <div class="col-12 text-center">
-                    <p>No blogs available.</p>
+
+                    <div class="col-md-7">
+                        @if (!string.IsNullOrEmpty(item.CategoryName))
+                        {
+                            <span class="badge bg-secondary text-uppercase mb-2">@item.CategoryName</span>
+                        }
+                        <h5 class="text-primary fw-bold mb-1">
+                            <i class="bi bi-person-circle me-1" aria-hidden="true"></i>@item.AuthorName
+                        </h5>
+                        <div class="text-muted small mb-2" aria-label="Publish date">
+                            <i class="bi bi-calendar3 me-1" aria-hidden="true"></i>@item.CreatedAt.ToString("dd MMM yyyy")
+                        </div>
+                        <h4 class="fw-semibold mb-2">@item.Title</h4>
+                        <p class="text-muted" style="line-height: 1.6;">
+                            @(string.IsNullOrWhiteSpace(item.Description)
+                                ? "No description."
+                                : item.Description.Length > 250
+                                    ? item.Description[..250] + "..."
+                                    : item.Description)
+                        </p>
+                        <div class="d-flex gap-2 mt-3">
+                            <a href="/Blog/BlogDetail/@item.BlogId" class="btn btn-primary btn-sm px-4" role="button">Read</a>
+                            <a href="#" class="btn btn-outline-secondary btn-sm px-4" role="button">Share</a>
+                        </div>
+                    </div>
                 </div>
+
+                index++;
             }
-        </div>
+        }
+        else
+        {
+            <div class="text-center">
+                <p>No blog posts available.</p>
+            </div>
+        }
     </div>
 </section>
 
+<script>
+    document.getElementById("authorFilter").addEventListener("change", function () {
+        const selectedAuthor = this.value.toLowerCase();
+        const cards = document.querySelectorAll('[data-author]');
 
+        cards.forEach(card => {
+            const author = card.getAttribute("data-author").toLowerCase();
+            card.style.display = (!selectedAuthor || author === selectedAuthor) ? "flex" : "none";
+        });
+    });
+</script>

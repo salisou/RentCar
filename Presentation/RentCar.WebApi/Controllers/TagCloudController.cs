@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using RentCar.Application.Features.Mediator.Commands.TagCloudCommands;
 using RentCar.Application.Features.Mediator.Queries.TagCloudQueries;
+using RentCar.Application.Features.Mediator.Results.TagCloudResults;
 
 namespace RentCar.WebApi.Controllers
 {
@@ -115,6 +116,27 @@ namespace RentCar.WebApi.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, $"Errore durante l'eliminazione del TagCloud con id {id}.");
+                return StatusCode(500, "Si è verificato un errore interno.");
+            }
+        }
+
+
+        [HttpGet("GetTagCloudByBlogId/{blogId}")]
+        public async Task<IActionResult> GetTagCloudByBlogId(int blogId)
+        {
+            try
+            {
+                List<GetTagCloudByBlogIdQueryResult> value = await _mediator.Send(new GetTagCloudByBlogIdQuery(blogId));
+                if (value == null || !value.Any())
+                {
+                    _logger.LogInformation($"Nessun TagCloud trovato per il blog con id {blogId}.");
+                    return NotFound($"No TagClouds found for blog with id {blogId}");
+                }
+                return Ok(value);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Errore durante il recupero dei TagCloud per il blog con id {blogId}.");
                 return StatusCode(500, "Si è verificato un errore interno.");
             }
         }

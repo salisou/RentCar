@@ -307,7 +307,11 @@ namespace RentCar.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CommentId"));
 
-                    b.Property<int>("AuthorId")
+                    b.Property<string>("AuthorName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("BlogId")
                         .HasColumnType("int");
 
                     b.Property<string>("Content")
@@ -317,13 +321,9 @@ namespace RentCar.Persistence.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("CommentId");
 
-                    b.HasIndex("AuthorId");
+                    b.HasIndex("BlogId");
 
                     b.ToTable("Comments");
                 });
@@ -630,13 +630,13 @@ namespace RentCar.Persistence.Migrations
 
             modelBuilder.Entity("RentCar.Domain.Entities.Comment", b =>
                 {
-                    b.HasOne("RentCar.Domain.Entities.Author", "Author")
+                    b.HasOne("RentCar.Domain.Entities.Blog", "Blog")
                         .WithMany("Comments")
-                        .HasForeignKey("AuthorId")
+                        .HasForeignKey("BlogId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Author");
+                    b.Navigation("Blog");
                 });
 
             modelBuilder.Entity("RentCar.Domain.Entities.TagCloud", b =>
@@ -653,12 +653,12 @@ namespace RentCar.Persistence.Migrations
             modelBuilder.Entity("RentCar.Domain.Entities.Author", b =>
                 {
                     b.Navigation("Blogs");
-
-                    b.Navigation("Comments");
                 });
 
             modelBuilder.Entity("RentCar.Domain.Entities.Blog", b =>
                 {
+                    b.Navigation("Comments");
+
                     b.Navigation("TagClouds");
                 });
 

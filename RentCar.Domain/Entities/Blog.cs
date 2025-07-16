@@ -12,5 +12,6 @@
         public Category Category { get; set; } = new Category();
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public List<TagCloud> TagClouds { get; set; } = new();
+        public List<Comment> Comments { get; set; } = new();
     }
 }

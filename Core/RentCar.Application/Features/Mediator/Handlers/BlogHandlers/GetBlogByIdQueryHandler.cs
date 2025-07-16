@@ -17,24 +17,21 @@ namespace RentCar.Application.Features.Mediator.Handlers.BlogHandlers
 
         public async Task<GetBlogByIdQueryResult> Handle(GetBlogByIdQuery request, CancellationToken cancellationToken)
         {
-            return await _blogRepository.GetByIdAsync(request.Id)
-                .ContinueWith(task =>
+            return await Task.Run(async () =>
+            {
+                var blog = await _blogRepository.GetByIdAsync(request.Id)
+                           ?? throw new KeyNotFoundException($"Blog with ID {request.Id} not found.");
+                return new GetBlogByIdQueryResult
                 {
-                    var blog = task.Result;
-                    if (blog == null)
-                    {
-                        throw new KeyNotFoundException($"Blog with ID {request.Id} not found.");
-                    }
-                    return new GetBlogByIdQueryResult
-                    {
-                        BlogId = blog.BlogId,
-                        Title = blog.Title,
-                        CoverImageUrl = blog.CoverImageUrl,
-                        AuthorId = blog.AuthorId,
-                        CategoryId = blog.CategoryId,
-                        CreatedAt = blog.CreatedAt
-                    };
-                }, cancellationToken);
+                    BlogId = blog.BlogId,
+                    Title = blog.Title,
+                    Description = blog.Description,
+                    CoverImageUrl = blog.CoverImageUrl,
+                    AuthorId = blog.AuthorId,
+                    CategoryId = blog.CategoryId,
+                    CreatedAt = blog.CreatedAt
+                };
+            }, cancellationToken);
         }
     }
 }

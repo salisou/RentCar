@@ -1,9 +1,20 @@
-﻿<div class="about-author d-flex p-4 bg-light">
-    <div class="bio mr-5">
-        <img src="~/carbook-master/images/person_1.jpg" alt="Image placeholder" class="img-fluid mb-4">
-    </div>
-    <div class="desc">
-        <h3>George Washington</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, autem necessitatibus voluptate quod mollitia delectus aut, sunt placeat nam vero culpa sapiente consectetur similique, inventore eos fugit cupiditate numquam!</p>
-    </div>
-</div>
+﻿@model List<ResultGetAuthorByBlogAuthorIdDto>
+
+@foreach (var author in Model)
+{
+    <article class="about-author d-flex flex-column flex-md-row align-items-center align-items-md-center p-4 bg-light rounded-3 shadow mb-5">
+        <figure class="bio flex-shrink-0 me-md-5 mb-4 mb-md-0 text-center">
+            <img src="@author.AuthorImageUrl"
+                 alt="Foto di @author.AuthorName"
+                 class="img-fluid rounded-circle border border-3"
+                 style="width: 200px; height: 200px; object-fit: cover;" />
+        </figure>
+
+        <section class="desc text-center text-md-start w-100">
+            <h3 class="h2 fw-bold mb-3">@author.AuthorName</h3>
+            <p class="fs-5 lh-lg text-muted" style="max-width: 800px; margin: 0 auto;">
+                @author.AuthorDescription
+            </p>
+        </section>
+    </article>
+}

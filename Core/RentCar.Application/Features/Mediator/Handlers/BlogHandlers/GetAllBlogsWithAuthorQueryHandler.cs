@@ -22,6 +22,8 @@ namespace RentCar.Application.Features.Mediator.Handlers.BlogHandlers
                 BlogId = blog.BlogId,
                 Title = blog.Title,
                 Description = blog.Description,
+                AuthorDescription = blog.Author.Description,
+                AuthorImageUrl = blog.Author.ImageUrl,
                 CoverImageUrl = blog.CoverImageUrl,
                 AuthorId = blog.AuthorId,
                 AuthorName = blog.Author.Name,

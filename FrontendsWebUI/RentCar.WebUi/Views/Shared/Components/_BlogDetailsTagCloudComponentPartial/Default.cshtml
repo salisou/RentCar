@@ -1,13 +1,8 @@
-﻿<div class="sidebar-box ftco-animate">
-    <h3>Tag Cloud</h3>
-    <div class="tagcloud">
-        <a href="#" class="tag-cloud-link">Mobile Development</a>
-        <a href="#" class="tag-cloud-link">Software Development</a>
-        <a href="#" class="tag-cloud-link">Cyber Security</a>
-        <a href="#" class="tag-cloud-link">Social Media</a>
-        <a href="#" class="tag-cloud-link">SEO</a>
-        <a href="#" class="tag-cloud-link">Internet Security</a>
-        <a href="#" class="tag-cloud-link">Sofware House</a>
-        <a href="#" class="tag-cloud-link">Coding Hub</a>
-    </div>
+﻿@model List<ResultGetByBlogTagCloudDto>
+
+<div class="tagcloud">
+    @foreach (var tag in Model)
+    {
+        <a href="#" class="tag-cloud-link">@tag.Title</a>
+    }
 </div>

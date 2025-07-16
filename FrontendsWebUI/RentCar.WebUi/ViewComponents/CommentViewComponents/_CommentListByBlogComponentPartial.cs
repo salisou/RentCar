@@ -12,11 +12,11 @@ namespace RentCar.WebUi.ViewComponents.CommentViewComponents
             _httpClientFactory = httpClientFactory;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync()
+        public async Task<IViewComponentResult> InvokeAsync(int blogId)
         {
             var client = _httpClientFactory.CreateClient();
 
-            var response = await client.GetAsync("https://localhost:7265/api/Cooments/GetAllCommentWithAuthors");
+            var response = await client.GetAsync($"https://localhost:7265/api/Comments?blogId={blogId}");
 
             if (response.IsSuccessStatusCode)
             {
@@ -26,5 +26,6 @@ namespace RentCar.WebUi.ViewComponents.CommentViewComponents
 
             return View(new List<ResultCommentDto>());
         }
+
     }
 }

@@ -1,20 +1,31 @@
 ﻿@{
     ViewData["Title"] = "BlogDetail";
     Layout = "~/Views/UiLayout/Index.cshtml";
+    int? blogId = ViewBag.blogid as int?;
 }
-
-
 <section class="ftco-section ftco-degree-bg">
     <div class="container">
-    <div class="row">
-        @await Component.InvokeAsync("_BlogDetailsMainComponentPartial")
-        <div class="col-md-4 sidebar ftco-animate">
-            @await Component.InvokeAsync("_BlogDetailSideBarSearchBoxComponentPartial")
-            @await Component.InvokeAsync("_BlogDetailCategoryComponentPartial")
-            @await Component.InvokeAsync("_BlogDetailRecentBlogComponentPartial")
-            @await Component.InvokeAsync("_BlogDetailsTagCloudComponentPartial")
-            @await Component.InvokeAsync("_BlogDetailsParagraphComponentPartial")
+        <div class="row">
+            @if (blogId.HasValue)
+            {
+                @await Component.InvokeAsync("_BlogDetailsMainComponentPartial", new { id = blogId.Value })
+
+                <div class="col-md-4 sidebar ftco-animate">
+                    @await Component.InvokeAsync("_BlogDetailSideBarSearchBoxComponentPartial")
+                    @await Component.InvokeAsync("_BlogDetailCategoryComponentPartial")
+                    @await Component.InvokeAsync("_BlogDetailRecentBlogComponentPartial")
+                    @await Component.InvokeAsync("_BlogDetailsTagCloudByIdComponentPartial", new { id = blogId.Value })
+                    @await Component.InvokeAsync("_BlogDetailsParagraphComponentPartial")
+                </div>
+            }
+            else
+            {
+                <div class="col-12 text-center">
+                    <div class="alert alert-danger" role="alert">
+                        Errore: Blog ID non disponibile. Verifica l'URL.
+                    </div>
+                </div>
+            }
         </div>
     </div>
-    </div>
-</section> 
+</section>
