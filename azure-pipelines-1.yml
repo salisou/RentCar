@@ -3,3 +3,53 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
+trigger:
+- none
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+  solution: '**/salisou.RentCar.sln'
+  project: '**/salisou.RentCar.csproj'
+
+steps:
+- task: NuGetToolInstaller@1
+  name: NugetToolInstaller
+  displayName: 'Install NuGet Tool'
+
+- task: NuGetCommand@2
+  name: NugetRestore
+  displayName: 'Restore NuGet Packages'
+  inputs:
+    command: 'restore'
+    restoreSolution: '$(solution)'
+    feedsToUse: 'select'
+    # vstsFeed: 'your-feed-id-or-name'  # Uncomment and set this if using private feed
+
+- task: DotNetCoreCLI@2
+  name: RunTests
+  displayName: 'Run Unit Tests'
+  inputs:
+    command: 'test'
+    projects: '$(solution)'
+    arguments: '--configuration $(buildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  name: PublishApp
+  displayName: 'Publish Application'
+  inputs:
+    command: 'publish'
+    projects: '$(project)'
+    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    zipAfterPublish: false
+
+- task: PublishBuildArtifacts@1
+  name: PublishArtifacts
+  displayName: 'Publish Build Artifacts'
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'RentCar'
+    publishLocation: 'Container'
